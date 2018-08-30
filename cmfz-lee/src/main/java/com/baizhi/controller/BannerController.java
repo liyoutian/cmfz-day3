@@ -72,14 +72,11 @@ public class BannerController {
     }
 
     @RequestMapping("/update.do")
-    public String update(Banner banner){
-        System.out.println(banner+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    public void update(Banner banner){
         bannerService.update(banner);
-        return "index";
     }
     @RequestMapping("/delete.do")
-    public String delete(Integer id){
+    public void delete(Integer id){
         bannerService.delete(id);
-        return "index";
     }
 }

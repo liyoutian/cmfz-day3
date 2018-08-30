@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2018/8/29.
@@ -22,7 +23,8 @@ public class TestCmfz {
 
     @Test
     public void test1(){
-        List<Menu> menus = menudao.queryAll();
-        System.out.println(menus);
+
+
+
     }
 }

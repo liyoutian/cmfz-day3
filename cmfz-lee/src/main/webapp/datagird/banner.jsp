@@ -13,7 +13,6 @@
             iconCls: 'icon-edit',
             handler: function () {
                 $('#dg').edatagrid('destroyRow')
-                $
             }
         }, '-', {
             text: "修改",

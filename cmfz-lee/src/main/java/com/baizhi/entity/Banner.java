@@ -14,7 +14,7 @@ public class Banner implements Serializable{
     private String imgPath;//图片路径
     private String desc;//图片描述
     private String status;//图片状态
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createDate;//上传时间
 
     public Banner() {
