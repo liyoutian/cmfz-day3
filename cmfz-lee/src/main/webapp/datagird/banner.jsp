@@ -6,61 +6,25 @@
             iconCls: 'icon-add',
             text: "添加",
             handler: function () {
-                // 初始化dialog
-                $('#di').dialog({
-                    title:'编辑',
-                    iconCls:'icon-edit',
-                    width:600,
-                    height:300,
-                    buttons:[
-                        {
-                            text:'提交',
-                            iconCls:'icon-ok',
-                            handler:function(){
-                                // 提交表单
-                                $('#from').submit();
-                            }
-                        }
-                    ]
-                });
-                // 初始化表单
-                $('#from').form("submit",{
-                    url:'${pageContext.request.contextPath}/banner/save.do',
-                    onSubmit:function(param){
-                        return true;
-                    },
-                    success:function(data){
-                        console.log(data);
-                        //关闭dialog
-                        $('#di').dialog('close');
-                        // 刷新datagrid
-                        $('#dg').datagrid('load');
-                    }
-                });
+                $("#dd").dialog("open");
             }
         }, '-', {
             text: "删除",
             iconCls: 'icon-edit',
             handler: function () {
-                /*
-                 * 删除数据
-                 *
-                 * */
+                $('#dg').edatagrid('destroyRow')
+                $
             }
         }, '-', {
             text: "修改",
             iconCls: 'icon-edit',
             handler: function () {
-                /*
-                 *使当前选中行可编辑模式
-                 * */
+                 //使当前选中行可编辑模式
                 var row = $("#dg").edatagrid("getSelected");
                 if (row != null) {
-
                     var index = $("#dg").edatagrid("getRowIndex", row)
                     //当前行可编辑
                     $("#dg").edatagrid("editRow", index)
-
                 } else {
                     alert("请先选中行")
                 }
@@ -72,12 +36,11 @@
                 $("#dg").edatagrid("saveRow")
             }
         }]
-
         $('#dg').edatagrid({
             url: '${pageContext.request.contextPath}/banner/showBanner.do',
-            updateUrl: "${pageContext.request.contextPath}/cmfz/banner/add",
+            updateUrl: "${pageContext.request.contextPath}/banner/update.do",
+            destroyUrl: "${pageContext.request.contextPath}/banner/delete.do",
             columns: [[
-
                 {field: 'id', title: '编号', width: 100},
                 {field: 'title', title: '名称', width: 100},
                 {
@@ -90,7 +53,6 @@
                 },
                 {field: 'desc', title: '描述', width: 100},
                 {field: 'createDate', title: '时间', width: 100}
-
             ]],
             fitColumns: true,
             fit: true,
@@ -111,54 +73,65 @@
         });
 
     })
-
+    function submit() {
+        $("#ff").form("submit", {
+            url: "${pageContext.request.contextPath}/banner/save.do"
+        })
+    };
 </script>
 
 <table id="dg"></table>
-    <div id="di" style="padding:20px;display:none;">
-        <form id="from" method="get">
-            <table>
-                <tr>
-                    <td>
-                        图片名:
-                    </td>
-                    <td>
-                        <input id="id" name="title" class="easyui-textbox" data-options="required:true" style="width: 150px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        图片路径:
-                    </td>
-                    <td>
-                        <input id="username" name="imgPath" class="easyui-textbox" data-options="required:true" style="width: 150px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        图片描述:
-                    </td>
-                    <td>
-                        <input id="password" name="desc" class="easyui-textbox" data-options="required:true" style="width: 150px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        是否上架:
-                    </td>
-                    <td>
-                        <input id="salary" name="status" class="easyui-textbox" data-options="required:true" style="width: 150px"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        上架时间:
-                    </td>
-                    <td>
-                        <input id="age" name="createDate" class="easyui-datebox" data-options="required:true" style="width: 150px"/>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
+<div id="dd" class="easyui-dialog" title="认真添加哦！" style="width:400px;height:250px;"
+     data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,buttons:[{
+				text:'保存',
+				handler:function(){
+                     submit();
+                      $('#dd').dialog('close');
+                      $('#dg').edatagrid('reload');
+				}
+			},{
+				text:'关闭',
+				handler:function(){
+                     $('#dd').dialog('close');
+				}
+			}]">
+    <form id="ff" method="post" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>
+                    <label for="title">标题:</label>+
+                </td>
+                <td>
+                    <input class="easyui-validatebox" id="title" type="text" name="title" data-options="required:true"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="desc">描述:</label>
+                </td>
+                <td>
+                    <input class="easyui-textbox" type="text" id="desc" name="desc" data-options=""/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    展示状态：
+                </td>
+                <td>
+                    <select id="cc" class="easyui-combobox" name="status" style="width:200px;">
+                        <option value="y">展示</option>
+                        <option value="n">不展示</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="img">图片:</label>
+                </td>
+                <td>
+                    <input class="easyui-filebox" id="img" name="img" style="width:300px">
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>

@@ -1,6 +1,7 @@
 package com.baizhi.service;
 
 import com.baizhi.entity.Banner;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
